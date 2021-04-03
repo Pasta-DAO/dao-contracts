@@ -1,4 +1,4 @@
-pragma solidity ^0.7.0;
+pragma solidity ^0.6.12;
 pragma experimental ABIEncoderV2;
 
 interface TokenInterface {
@@ -13,7 +13,7 @@ contract Pasta {
     /// @notice EIP-20 token symbol for this token
     string public constant symbol = "PASTA";
 
-    string public constant errorMsg = unicode"It's all pasta 🌎🧑‍🚀🔫🧑‍🚀";
+    string public constant errorMsg = "It's all pasta 🌎🧑‍🚀🔫🧑‍🚀";
 
     /// @notice EIP-20 token decimals for this token
     uint8 public constant decimals = 18;
@@ -22,8 +22,7 @@ contract Pasta {
     uint public totalSupply;
 
     /// @notice Address of UNI-V2 ETH/PASTA LP Token
-    // TokenInterface public constant food = TokenInterface(0xE92346d9369Fe03b735Ed9bDeB6bdC2591b8227E);
-    TokenInterface public constant food = TokenInterface(0xB10cf58E08b94480fCb81d341A63295eBb2062C2);
+    TokenInterface public constant food = TokenInterface(0xE92346d9369Fe03b735Ed9bDeB6bdC2591b8227E);
 
     /// @notice Cooldown period in seconds
     uint public immutable COOLDOWN_SECONDS;
@@ -75,7 +74,7 @@ contract Pasta {
 
     event Cooldown(address indexed user);
 
-    constructor(uint cooldown_, uint redeemWindow_) {
+    constructor(uint cooldown_, uint redeemWindow_) public {
         COOLDOWN_SECONDS = cooldown_;
         REDEEM_WINDOW = redeemWindow_;
     }

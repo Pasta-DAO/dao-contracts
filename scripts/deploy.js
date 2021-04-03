@@ -5,7 +5,6 @@ const { ethers } = hre;
 async function main() {
   const twoDays = 172800
   const threeDays = 259200
-  const fiveDays = 432000
   const accounts = await ethers.getSigners()
   const guardian = "0x2b02AAd6f1694E7D9c934B7b3Ec444541286cF0f"
 
@@ -23,14 +22,9 @@ async function main() {
   await governor.deployed()
 
   const Timelock = await ethers.getContractFactory("Timelock")
-  const timelock = await Timelock.deploy(governor.address, fiveDays)
+  const timelock = await Timelock.deploy(governor.address, twoDays)
 
   await timelock.deployed()
-
-  await hre.run("verify:verify", {
-    address: pasta.address,
-    constructorArguments: [threeDays, twoDays]
-  })
 
   await hre.run("verify:verify", {
     address: governor.address,
@@ -39,7 +33,12 @@ async function main() {
 
   await hre.run("verify:verify", {
     address: timelock.address,
-    constructorArguments: [governor.address, fiveDays]
+    constructorArguments: [governor.address, twoDays]
+  })
+
+  await hre.run("verify:verify", {
+    address: pasta.address,
+    constructorArguments: [threeDays, twoDays]
   })
 }
 

@@ -3,6 +3,8 @@ require("@nomiclabs/hardhat-waffle");
 require("@nomiclabs/hardhat-etherscan");
 require("dotenv").config();
 
+const { utils } = require("ethers");
+
 const ALCHEMY_ID = process.env.ALCHEMY_ID;
 const PRIVATE_KEY = process.env.PRIVATE_KEY;
 
@@ -35,12 +37,18 @@ module.exports = {
       url: `https://eth-kovan.alchemyapi.io/v2/${ALCHEMY_ID}`,
       accounts: [`0x${PRIVATE_KEY}`],
       gas: 12500000,
-    }
+    },
+    mainnet: {
+      url: `https://eth.alchemyapi.io/v2/${ALCHEMY_ID}`,
+      accounts: [`0x${PRIVATE_KEY}`],
+      timeout: 150000,
+      gasPrice: parseInt(utils.parseUnits("95", "gwei"))
+    },
   },
   solidity: {
     compilers: [
       {
-        version: "0.7.0"
+        version: "0.6.12"
       },
       {
         version: "0.5.16"

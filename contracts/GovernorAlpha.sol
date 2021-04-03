@@ -53,7 +53,7 @@ contract GovernorAlpha is DSMath {
     function votingDelay() public pure returns (uint) { return 1; } // 1 block
 
     /// @notice The duration of voting on a proposal, in blocks
-    function votingPeriod() public pure returns (uint) { return 17280; } // ~3 days in blocks (assuming 15s blocks)
+    function votingPeriod() public pure returns (uint) { return 28800; } // ~5 days in blocks (assuming 15s blocks)
 
     /// @notice The address of the Pasta Protocol Timelock
     TimelockInterface public timelock;
