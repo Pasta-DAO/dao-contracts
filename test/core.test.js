@@ -1,5 +1,6 @@
 const hre = require("hardhat");
 const { expect } = require("chai");
+const RLP = require('rlp');
 const { ethers, network } = hre;
 
 describe("🚀 Core", function () {
@@ -11,6 +12,7 @@ describe("🚀 Core", function () {
     userAddr = "0x8EcCE8e28Af4A2b8d3B093Ef34b24525af0989C6"
     voterAddr = "0xE89bD48a519706E599e6C3e8Fa41b89Ef13e3979"
     swingAddr = "0xa985c12Cab14159abC12EcEBb6c57D253d686ed6"
+    const accounts = await ethers.getSigners()
 
     await hre.network.provider.request({
       method: "hardhat_impersonateAccount",
@@ -42,8 +44,11 @@ describe("🚀 Core", function () {
 
     await pasta.deployed()
 
+    const txCount = await ethers.provider.getTransactionCount(accounts[0].address) + 1
+    const timelockAddr = '0x' + ethers.utils.keccak256(RLP.encode([accounts[0].address, txCount])).slice(12).substring(14)
+
     const Governor = await ethers.getContractFactory("GovernorAlpha")
-    governor = await Governor.deploy(pasta.address, whaleAddr)
+    governor = await Governor.deploy(pasta.address, whaleAddr, timelockAddr)
 
     await governor.deployed()
 
@@ -52,7 +57,7 @@ describe("🚀 Core", function () {
 
     await timelock.deployed()
 
-    await governor.connect(whale).__setTimelock(timelock.address)
+    // await governor.connect(whale).__setTimelock(timelock.address)
 
     const uniLP = [
       "function transfer(address to, uint amount)",

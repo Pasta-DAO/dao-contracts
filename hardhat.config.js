@@ -1,6 +1,10 @@
 require("@nomiclabs/hardhat-ethers");
 require("@nomiclabs/hardhat-waffle");
+require("@nomiclabs/hardhat-etherscan");
 require("dotenv").config();
+
+const ALCHEMY_ID = process.env.ALCHEMY_ID;
+const PRIVATE_KEY = process.env.PRIVATE_KEY;
 
 // This is a sample Hardhat task. To learn how to create your own go to
 // https://hardhat.org/guides/create-task.html
@@ -22,11 +26,16 @@ module.exports = {
   networks: {
     hardhat: {
       forking: {
-        url: process.env.ETH_NODE_URL,
+        url: `https://eth-mainnet.alchemyapi.io/v2/${ALCHEMY_ID}`,
       },
       blockGasLimit: 12000000,
       blockNumber: 12023336,
     },
+    kovan: {
+      url: `https://eth-kovan.alchemyapi.io/v2/${ALCHEMY_ID}`,
+      accounts: [`0x${PRIVATE_KEY}`],
+      gas: 12500000,
+    }
   },
   solidity: {
     compilers: [
@@ -37,6 +46,9 @@ module.exports = {
         version: "0.5.16"
       }
     ]
+  },
+  etherscan: {
+    apiKey: process.env.ETHERSCAN
   }
 };
 

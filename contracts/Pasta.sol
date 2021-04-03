@@ -22,7 +22,8 @@ contract Pasta {
     uint public totalSupply;
 
     /// @notice Address of UNI-V2 ETH/PASTA LP Token
-    TokenInterface public constant food = TokenInterface(0xE92346d9369Fe03b735Ed9bDeB6bdC2591b8227E);
+    // TokenInterface public constant food = TokenInterface(0xE92346d9369Fe03b735Ed9bDeB6bdC2591b8227E);
+    TokenInterface public constant food = TokenInterface(0xB10cf58E08b94480fCb81d341A63295eBb2062C2);
 
     /// @notice Cooldown period in seconds
     uint public immutable COOLDOWN_SECONDS;
