@@ -257,7 +257,7 @@ contract GovernorAlpha is DSMath {
         require(state != ProposalState.Executed, "GovernorAlpha::cancel: cannot cancel executed proposal");
 
         Proposal storage proposal = proposals[proposalId];
-        require(msg.sender == proposal.proposer || pasta.getPriorVotes(proposal.proposer, sub(block.number, 1)) < proposalThreshold(), "GovernorAlpha::cancel: proposer above threshold");
+        require(msg.sender == proposal.proposer || msg.sender == guardian || pasta.getPriorVotes(proposal.proposer, sub(block.number, 1)) < proposalThreshold(), "GovernorAlpha::cancel: proposer above threshold");
 
         proposal.canceled = true;
         for (uint i = 0; i < proposal.targets.length; i++) {

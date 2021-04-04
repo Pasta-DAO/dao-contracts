@@ -6,7 +6,7 @@ async function main() {
   const twoDays = 172800
   const threeDays = 259200
   const accounts = await ethers.getSigners()
-  const guardian = "0x2b02AAd6f1694E7D9c934B7b3Ec444541286cF0f"
+  const guardian = "0xB449dfE00aACf406eb442B22745A25430490FE1b"
 
   const Pasta = await ethers.getContractFactory("Pasta")
   const pasta = await Pasta.deploy(threeDays, twoDays)

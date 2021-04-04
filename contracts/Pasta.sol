@@ -8,7 +8,7 @@ interface TokenInterface {
 
 contract Pasta {
     /// @notice EIP-20 token name for this token
-    string public constant name = "Pasta DAO";
+    string public constant name = "Pasta DAO 🍝";
 
     /// @notice EIP-20 token symbol for this token
     string public constant symbol = "PASTA";
